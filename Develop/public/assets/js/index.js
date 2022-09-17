@@ -4,6 +4,9 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+
+// WHEN I click on the link to the notes page
+// THEN I am presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
