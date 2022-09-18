@@ -26,8 +26,8 @@ res.sendFile(path.join(__dirname, '/public/index.html'))
 
 //Route to Get notes pages
 app.get('/notes', (req, res) =>
-res.sendFile(path.join(__dirname, '/public/notes.html')),
-console.log('go to notes')
+res.sendFile(path.join(__dirname, '/public/notes.html'))
+
 );
 
 
