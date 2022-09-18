@@ -1,6 +1,7 @@
 const express = require('express');
-const path = require('path');
-const api = require('./routes/index.js');
+const path = require('path'); 
+const db = require('./db/db.json');
+const fs = require('fs');
 
 //variable port to run server
 const PORT = process.env.PORT || 3001;
@@ -9,26 +10,35 @@ const app = express();
 
 
 //midleware for parsing JSON data
+console.log('loading middleware');
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-//middleware to access public folder
 app.use(express.static('public'));
- 
 
-        //WHEN I open the Note Taker
-        //THEN I am presented with a landing page with a link to a notes page
+
 
 //Route to Get landing page 
 app.get('/', (req, res) =>
 res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
+// Get request for api/notes
+app.get('/api/notes', (req,res) =>{
+    res.json({db});
+    console.log(db);
+});
+
+
 //Route to Get notes pages
 app.get('/notes', (req, res) =>
-res.sendFile(path.join(__dirname, '/public/notes.html'))
-
+  console.log('/notes .get');
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
+
+
+
+
+
 
 
 // listening for the port
