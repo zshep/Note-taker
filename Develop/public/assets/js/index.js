@@ -28,7 +28,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch('  ', {
+  fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -183,3 +183,5 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+
+
