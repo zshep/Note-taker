@@ -2,9 +2,10 @@ const express = require('express');
 const path = require('path'); 
 const fs = require('fs');
 const db = require('./db/db.json');
-const uuid = require('./helpers/uuid'); //unique id middleware
-const { stringify } = require('querystring');
 const PORT = process.env.PORT || 3001; //variable port to run server
+const uniqid = require('uniqid'); //unique npm package
+
+
 // creating variable for express to use
 const app = express();
 
@@ -30,28 +31,27 @@ res.sendFile(path.join(__dirname, '/public/notes.html'))
 // Get request for api/notes
 app.get('/api/notes', (req,res) =>{
     
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-          } else {
+    fs.readFile('./db/db.json', function(err, data){
+        
             res.json(JSON.parse(data))
-
-
-          }
-    
-        });
+            
+        })        
 });
 
-
+app.get('*', (req,res) =>
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+);
 
 // post wrote to write data to db
 app.post('/api/notes', (req,res) => {
     // deconstructing the Notetitle and notetext from request and adding to variable
+    const unique_id = uniqid.time();
     const { title, text } = req.body;
     if (req.body){
     const savedNotes = {
         title,
-        text
+        text,
+        id: unique_id,
         };
      fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
