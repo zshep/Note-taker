@@ -75,33 +75,10 @@ app.post('/api/notes', (req,res) => {
     })
 
 
-
-    // // variable to hold parsed data of notes
-    // const noteData = JSON.parse(fs.readFile('./db/db.json', (err) => {
-    //     err ? console.error(err) : console.log("Success writing notes to db")
-    // }));
-    // noteData.push(savedNotes);
-    // //debugging
-    // console.log(savedNotes);
-    // console.log(noteData);
-
-    // stringyNote = JSON.stringify(noteData)
-    // //writing data with new added note    
-    // fs.writeFile('./db/db.json', stringyNote, (err) => {
-    // err ? console.error(err) : console.log("Success writing notes to db")
-    // });
-
-    // //send savedNOtes
-    // res.json(savedNotes);
-
-
 // route to delete notes when clicked on trashcan
 app.delete('/api/notes/', (req, res) =>{
 
 })
-
-
-//html routes???
 
 
 // listening for the port
