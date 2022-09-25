@@ -42,7 +42,7 @@ app.get('*', (req,res) =>
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
-// post wrote to write data to db
+// route POST to write data to db
 app.post('/api/notes', (req,res) => {
     // deconstructing the Notetitle and notetext from request and adding to variable
     const unique_id = uniqid.time();
@@ -76,9 +76,25 @@ app.post('/api/notes', (req,res) => {
 
 
 // route to delete notes when clicked on trashcan
-app.delete('/api/notes/', (req, res) =>{
-
-})
+app.delete('/api/notes/:id', (req, res) =>{
+    let deleteId = req.params.id
+    fs.readFile('./db/db.json', function (err, data) {
+        if(err) {
+            console.error(err);
+        } else {
+        //grab the list of notes already there
+        let oldArray = JSON.parse(data);
+        //create new rray by filtering out the selected id to be deleted
+        let newArray = oldArray.filter(object => object.id !== deleteId);
+        //rewrite the new array to the db.json
+        fs.writeFile('./db/db.json', JSON.stringify(newArray), (err) =>{
+            err ? console.error(err) : console.log("Success deleting note")
+            });
+        }
+    //response
+    res.sendFile(path.join(__dirname, '.public/notes.html'));
+    });
+});
 
 
 // listening for the port
